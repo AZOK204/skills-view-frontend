@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #22C55E;
+  --color-dark: #0B1024;
+  --color-slate-custom: #334155;
+  --color-gray-light: #A9A7B6;
+  --color-gray-text : #F2F2F2;
+  --color-gray-review-text:#94A3B8;
+  --radius-hero: 16px;
+  --font-alt: 'Inter', sans-serif;
+  --font-spline:"Spline Sans", sans-serif;
+  --color-btn-secondary:#1E293B;
+  --color-ebony:#111827;
+  --color-chateau:#9CA3AF;
+  --color-dark-dashboard:#1F2937CC;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+  body {
+    @apply bg-dark text-white;
+    font-family: "Montserrat", sans-serif;
+  }
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .gradient-hero {
+    background: linear-gradient(180deg, rgba(249, 249, 249, 0.81) 0%, rgba(20, 144, 65, 0.405) 100%);
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+  }
+
+  .section-title {
+    font-size: 45px;
+    line-height: 44px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: white;
+    margin-bottom: 12px;
+  }
+
+  /* Scroll Animations */
+  .fade-in-up-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+
+  .fade-in-up-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-left-scroll {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease-out;
+  }
+
+  .fade-in-left-scroll.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .fade-in-right-scroll {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.6s ease-out;
+  }
+
+  .fade-in-right-scroll.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scale-in-scroll {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.6s ease-out;
+  }
+
+  .scale-in-scroll.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.background-color-login {
+  background: url('./assets/backgound_pages.svg') no-repeat center center;
+  background-size: cover;
+}
+.gradient-btn-prpl{
+  background: linear-gradient(90deg, #4F46E5 0%, #7C3AED 100%);
+}
+
+/* Select Dropdown Styling */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("./assets/select.svg");
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+select option {
+  color: var(--color-dark);
+  padding: 8px 12px;
+}
+
+select option:hover {
+  background-color: #374151;
+}
+
+select:focus {
+  outline: none;
+}
+
+/* Remove default select styling for Firefox */
+select::-ms-expand {
+  display: none;
+}

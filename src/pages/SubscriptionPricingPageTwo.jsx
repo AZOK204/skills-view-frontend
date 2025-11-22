@@ -3,6 +3,7 @@ import { useInView } from "../utils/hooks";
 import Logo from "../components/Logo";
 import PricingCard from "../components/PricingCard";
 import { landingPageData } from "../utils/mockData";
+import LogoLanding from "../components/LogoLandingPage";
 
 const SubscriptionPricingPageTwo = () => {
   const [cardRef, cardVisible] = useInView();
@@ -28,7 +29,7 @@ const SubscriptionPricingPageTwo = () => {
   return (
     <div className="min-h-screen bg-dark overflow-hidden">
       <div className="fixed w-full flex justify-between">
-        <Logo />
+        <LogoLanding />
         {/* Toggle Buttons */}
          <div className="flex gap-3 bg-[#FFFFFF1A] rounded-lg p-1 m-3">
           <button

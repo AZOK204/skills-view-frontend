@@ -34,7 +34,7 @@ const Footer = () => {
           <div className='text-center md:text-left'>
             <h4 className="text-white font-semibold mb-4  text-[16px]">Légal</h4>
             <ul className="space-y-2">
-              <li><a href="/terms-of-use" className="hover:text-primary transition">confidentialité</a></li>
+              <li><a href="/terms-of-use" className="hover:text-primary transition">Confidentialité</a></li>
               <li><a href="/legal-notice" className="hover:text-primary transition">Mentions légal</a></li>
             </ul>
           </div>

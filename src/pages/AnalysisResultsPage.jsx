@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useInView } from '../utils/hooks';
 import Logo from '../components/Logo';
 import videoAnalysisService from '../services/videoAnalysisService';
@@ -10,7 +10,6 @@ const AnalysisResultsPage = () => {
   const [selectedGroup, setSelectedGroup] = useState('Collectif');
   
   const location = useLocation();
-  const navigate = useNavigate();
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

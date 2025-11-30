@@ -12,11 +12,19 @@ import LegalNotice from './pages/LegalNotice';
 import TermsOfUse from './pages/TermsOfUse';
 import './index.css';
 import SubscriptionPricingPageTwo from './pages/SubscriptionPricingPageTwo';
+import ComingSoon from './pages/ComingSoon';
 
 /**
  * Composant App principal avec routing
  */
 function App() {
+  const launchDate = new Date("2025-12-05T00:00:00"); // Date prévue du lancement
+  const now = new Date();
+
+  if (now < launchDate) {
+    return <ComingSoon />;
+  }
+
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-dark">

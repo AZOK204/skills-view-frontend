@@ -77,6 +77,7 @@ const AnalysisResultsPage = () => {
     }
     
     try {
+      console.log(`Downloading PDF for analysis ${analysis.id}, type: ${reportType}`);
       const blob = await videoAnalysisService.downloadPDF(analysis.id, reportType);
       
       // Create temp URL and trigger download
@@ -88,9 +89,26 @@ const AnalysisResultsPage = () => {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+      
+      console.log(`PDF downloaded successfully: ${reportType}_COMPREHENSIVE_REPORT.pdf`);
     } catch (error) {
       console.error('Error downloading PDF:', error);
-      alert('Erreur lors du téléchargement du PDF. Vérifiez que l\'analyse est complète.');
+      console.error('Error response:', error.response?.data);
+      
+      // Show more detailed error message
+      let errorMsg = 'Erreur lors du téléchargement du PDF. ';
+      if (error.response?.status === 404) {
+        errorMsg += `Le rapport "${reportType}" n'a pas été trouvé. `;
+        if (error.response?.data?.available_reports) {
+          errorMsg += `Rapports disponibles: ${error.response.data.available_reports.join(', ')}`;
+        }
+      } else if (error.response?.data?.error) {
+        errorMsg += error.response.data.error;
+      } else {
+        errorMsg += 'Vérifiez que l\'analyse est complète.';
+      }
+      
+      alert(errorMsg);
     }
   };
 

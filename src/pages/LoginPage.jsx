@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { validators, errorMessages } from '../utils/validators';
 import subscriptionService from '../services/subscriptionService';
 import logo from '../assets/logo.png';
+import LogoLanding from '../components/LogoLandingPage';
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login, signup } = useAuth();
@@ -147,8 +148,8 @@ const LoginPage = () => {
       className="h-screen background-color-login flex items-center justify-center p-4   opacity-100"
  
     >
-      <div className="fixed top-0 left-0 m-3">
-      <img src={logo} alt="logo"  className='w-28' />
+      <div className="fixed top-0 left-0">
+      <LogoLanding />
 
       </div>
       {/* Card Conteneur */}

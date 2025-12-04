@@ -13,7 +13,7 @@ export const subscriptionService = {
    */
   subscribe: async (planId, interval = 'monthly') => {
     try {
-      const response = await axiosInstance.post('/subscriptions/subscribe/', {
+      const response = await axiosInstance.post('subscriptions/subscribe/', {
         plan_id: planId,
         interval: interval
       });
@@ -36,7 +36,7 @@ export const subscriptionService = {
       if (newInterval) {
         payload.new_interval = newInterval;
       }
-      const response = await axiosInstance.post('/subscriptions/change_plan/', payload);
+      const response = await axiosInstance.post('subscriptions/change_plan/', payload);
       return response.data;
     } catch (error) {
       console.error('Change plan error:', error);
@@ -50,7 +50,7 @@ export const subscriptionService = {
    */
   getPlans: async () => {
     try {
-      const response = await axiosInstance.get('/plans/');
+      const response = await axiosInstance.get('plans/');
       return response.data;
     } catch (error) {
       console.error('Get plans error:', error);
@@ -64,7 +64,7 @@ export const subscriptionService = {
    */
   getCurrentSubscription: async () => {
     try {
-      const response = await axiosInstance.get('/subscriptions/current/');
+      const response = await axiosInstance.get('subscriptions/current/');
       return response.data;
     } catch (error) {
       console.error('Get current subscription error:', error);
@@ -79,7 +79,7 @@ export const subscriptionService = {
    */
   cancelSubscription: async (immediate = false) => {
     try {
-      const response = await axiosInstance.post('/subscriptions/cancel/', {
+      const response = await axiosInstance.post('subscriptions/cancel/', {
         immediate: immediate
       });
       return response.data;

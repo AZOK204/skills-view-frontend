@@ -18,6 +18,8 @@ import ComingSoon from './pages/ComingSoon';
  * Composant App principal avec routing
  */
 function App() {
+  console.log(import.meta.env.VITE_API_URL);
+  
   const launchDate = new Date("2025-12-05T00:00:00"); // Date prévue du lancement
   const now = new Date();
 

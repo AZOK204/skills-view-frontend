@@ -19,7 +19,7 @@ const videoAnalysisService = {
     }
 
     try {
-      const response = await axiosInstance.post('/video-analysis/upload/', formData, {
+      const response = await axiosInstance.post('video-analysis/upload/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -38,7 +38,7 @@ const videoAnalysisService = {
    */
   getAnalyses: async (params = {}) => {
     try {
-      const response = await axiosInstance.get('/video-analysis/', { params });
+      const response = await axiosInstance.get('video-analysis/', { params });
       return response.data;
     } catch (error) {
       console.error('Error fetching analyses:', error);
@@ -53,7 +53,7 @@ const videoAnalysisService = {
    */
   getAnalysisDetails: async (id) => {
     try {
-      const response = await axiosInstance.get(`/video-analysis/${id}/`);
+      const response = await axiosInstance.get(`video-analysis/${id}/`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching analysis details for ID ${id}:`, error);
@@ -68,7 +68,7 @@ const videoAnalysisService = {
    */
   getAnalysisStatus: async (id) => {
     try {
-      const response = await axiosInstance.get(`/video-analysis/${id}/status/`);
+      const response = await axiosInstance.get(`video-analysis/${id}/status/`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching status for ID ${id}:`, error);
@@ -83,10 +83,32 @@ const videoAnalysisService = {
    */
   deleteAnalysis: async (id) => {
     try {
-      await axiosInstance.delete(`/video-analysis/${id}/`);
+      await axiosInstance.delete(`video-analysis/${id}/`);
       return { success: true };
     } catch (error) {
       console.error(`Error deleting analysis ID ${id}:`, error);
+      throw error;
+    }
+  },
+
+  /**
+   * Download PDF for specific team report
+   * @param {number|string} id - Analysis ID
+   * @param {string} type - Report type ('Home' or 'Away')
+   * @returns {Promise} - Blob response
+   */
+  downloadPDF: async (id, type) => {
+    try {
+      const response = await axiosInstance.get(
+        `video-analysis/${id}/download_pdf/`,
+        {
+          params: { type },
+          responseType: 'blob', // Important for file download
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(`Error downloading PDF for type ${type}:`, error);
       throw error;
     }
   },

@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import videoAnalysisService from "../services/videoAnalysisService";
 import ProcessingModal from "./ProcessingModal";
 
+import { useAuth } from "../context/AuthContext";
+
 const VideoUploader = ({ quotaRemaining, planQuota }) => {
+  const { refreshUser } = useAuth();
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   
@@ -69,6 +72,9 @@ const VideoUploader = ({ quotaRemaining, planQuota }) => {
           setModalStatus('completed');
           setProgress(100);
           setMessage("Analyse terminée avec succès !");
+          
+          // Refresh user data (quota) immediately
+          await refreshUser();
           
           // Redirect after short delay
           setTimeout(() => {

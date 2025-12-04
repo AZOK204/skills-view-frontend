@@ -13,8 +13,9 @@ export const authService = {
    */
   login: async (email, password) => {
     try {
+      console.log("ENV API URL =", import.meta.env.VITE_API_URL);
       // Call the JWT login endpoint
-      const response = await axiosInstance.post('/login/', { email, password });
+      const response = await axiosInstance.post('login/', { email, password });
       
       const { access, refresh } = response.data;
       
@@ -60,7 +61,7 @@ export const authService = {
       };
       
       // Call the registration endpoint
-      const response = await axiosInstance.post('/users/register/', registrationData);
+      const response = await axiosInstance.post('users/register/', registrationData);
       
       // Return the newly created user data
       return response.data;
@@ -99,7 +100,7 @@ export const authService = {
    */
   getCurrentUserProfile: async () => {
     try {
-      const response = await axiosInstance.get('/users/me/');
+      const response = await axiosInstance.get('users/me/');
       return response.data;
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -119,7 +120,7 @@ export const authService = {
         throw new Error('No refresh token available');
       }
       
-      const response = await axiosInstance.post('/token/refresh/', {
+      const response = await axiosInstance.post('token/refresh/', {
         refresh: refreshToken,
       });
       

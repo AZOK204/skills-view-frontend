@@ -5,7 +5,7 @@ import axios from 'axios';
  * Intégré avec le backend Django et JWT authentication
  */
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
+  baseURL: import.meta.env.VITE_API_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -78,9 +78,8 @@ axiosInstance.interceptors.response.use(
       }
 
       try {
-        // Attempt to refresh the token
         const response = await axios.post(
-          `${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/token/refresh/`,
+          `${import.meta.env.VITE_API_URL}/token/refresh/`,
           { refresh: refreshToken }
         );
 

@@ -39,6 +39,67 @@ const AnalysisResultsPage = () => {
     fetchAnalysis();
   }, [location.state]);
 
+  // Polling for status updates if processing
+  useEffect(() => {
+    let interval;
+    if (analysis?.status === 'processing' || analysis?.status === 'uploading' || analysis?.status === 'pending') {
+      interval = setInterval(async () => {
+        try {
+          if (analysis?.id) {
+            const data = await videoAnalysisService.getAnalysisDetails(analysis.id);
+            setAnalysis(data);
+            
+            // Stop polling if completed or failed
+            if (data.status === 'completed' || data.status === 'failed') {
+              clearInterval(interval);
+            }
+          }
+        } catch (err) {
+          console.error("Polling error:", err);
+        }
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [analysis?.status, analysis?.id]);
+
+  const handleDownloadPDF = async () => {
+    if (!analysis?.id) return;
+    
+    // Map selection to report type
+    // Équipe A -> Home
+    // Équipe B -> Away
+    let reportType = 'Home';
+    if (selectedTeam === 'Équipe B') {
+      reportType = 'Away';
+    } else if (selectedTeam !== 'Équipe A') {
+      // Default or handle other cases if needed
+      console.warn('Unknown team selection, defaulting to Home');
+    }
+    
+    try {
+      const blob = await videoAnalysisService.downloadPDF(analysis.id, reportType);
+      
+      // Create temp URL and trigger download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${reportType}_COMPREHENSIVE_REPORT.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      alert('Erreur lors du téléchargement du PDF. Vérifiez que l\'analyse est complète.');
+    }
+  };
+
+  const handleDownloadZIP = () => {
+    if (analysis?.clips_zip_url) {
+      window.open(analysis.clips_zip_url, '_blank');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-dark flex items-center justify-center text-white">
@@ -60,12 +121,14 @@ const AnalysisResultsPage = () => {
   const events = analysis?.metadata?.events || [];
   
   // Transform events to clips format if needed
-  const videoClips = events.map((event, index) => ({
+  const  videoClips = events.map((event, index) => ({
     id: index,
     name: `${event.type} - ${event.start_time_s.toFixed(1)}s`,
     type: event.type,
     players: event.meta_tid ? [`#${event.meta_tid}`] : [],
-    url: analysis?.clips_zip_url // This is the ZIP, individual clips might need different handling if not unzipped
+    type: event.type,
+    players: event.meta_tid ? [`#${event.meta_tid}`] : [],
+    url: event.url // Use individual clip URL if available
   }));
 
   return (
@@ -108,16 +171,23 @@ const AnalysisResultsPage = () => {
               >
                 <option value="Équipe A">Équipe A</option>
                 <option value="Équipe B">Équipe B</option>
-                <option value="Équipe C">Équipe C</option>
               </select>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <button className="px-6 py-2 rounded-lg font-medium text-sm transition-all bg-primary text-white h-10 cursor-pointer">
+              <button 
+                onClick={handleDownloadPDF}
+                disabled={!analysis || analysis.status !== 'completed'}
+                className="px-6 py-2 rounded-lg font-medium text-sm transition-all bg-primary text-white h-10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Télécharger le PDF
               </button>
-              <button className="px-6 py-2 rounded-lg font-medium text-sm transition-all bg-primary text-white h-10 cursor-pointer">
-                Télécharger le CSV
+              <button 
+                onClick={handleDownloadZIP}
+                disabled={!analysis?.clips_zip_url}
+                className="px-6 py-2 rounded-lg font-medium text-sm transition-all bg-primary text-white h-10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Télécharger le ZIP
               </button>
             </div>
                 </div>
@@ -128,12 +198,12 @@ const AnalysisResultsPage = () => {
           <div className="rounded-lg p-6 mb-10 border border-[#FFFFFF1A]" style={{ backgroundColor: '#00000033' }}>
             <h3 className="text-white text-xl leading-8 traking-[-0.36px]">Clips Vidéos ({videoClips.length})</h3>
             <p className="text-gray-light text-sm mb-4 leading-6">
-              Filtrez et visionnez les clips par équipe et par joueur.
+              Filtrez et visionnez les clips par équipe.
             </p>
 
             {/* Filters */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-           
+{/*            
     <div className=" flex flex-col flex-1 items-start gap-1.5">
               <label className="text-white text-sm leading-6 ">Équipe</label>
               <select
@@ -148,27 +218,9 @@ const AnalysisResultsPage = () => {
               >
                 <option value="Équipe A">Équipe A</option>
                 <option value="Équipe B">Équipe B</option>
-                <option value="Équipe C">Équipe C</option>
               </select>
-            </div>
-             <div className=" flex flex-col flex-1 items-start gap-1.5">
-                <label className="text-white text-sm leading-6">Joueur / Groupe</label>
-                <select
-                  value={selectedGroup}
-                  onChange={(e) => setSelectedGroup(e.target.value)}
-                  className="w-full h-10 px-4 rounded-lg text-white text-sm"
-                  style={{
-                   backgroundColor: '#FFFFFF1A',
-                   borderTop: '1px solid #FFFFFF33',
-                   border: '1px solid #FFFFFF33',
-                }}
-                >
-                  <option value="Collectif">Collectif</option>
-                  <option value="Joueur 1">Joueur 1</option>
-                  <option value="Joueur 2">Joueur 2</option>
-                  <option value="Joueur 3">Joueur 3</option>
-                </select>
-              </div>
+            </div> */}
+           
             </div>
 
             {/* Video Clips List */}
@@ -188,8 +240,27 @@ const AnalysisResultsPage = () => {
                       {clip.players.length > 0 && (
                         <span className="text-gray-400 text-xs">({clip.players.join(', ')})</span>
                       )}
-                    </div>  
-               
+                    </div>
+                    
+                    {clip.url && (
+                      <div className="w-48 flex flex-col gap-2">
+                        <video 
+                          controls 
+                          src={clip.url} 
+                          className="w-full rounded bg-black"
+                          preload="metadata"
+                        />
+                        <a 
+                          href={clip.url}
+                          download={`clip_${clip.id}.mp4`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-center py-1.5 px-3 rounded bg-[#FFFFFF1A] text-white hover:bg-primary hover:text-white transition-colors"
+                        >
+                          Télécharger le clip
+                        </a>
+                      </div>
+                    )}
                   </div>
                 ))
               ) : (

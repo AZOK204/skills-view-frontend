@@ -116,11 +116,11 @@ const OverviewSection = () => {
                   >
                     Voir détails
                   </button>
-                  {analysis.status === 'completed' && (
+                  {/* {analysis.status === 'completed' && (
                     <button className="rounded-lg bg-[#FFFFFF1A] px-3 py-2 sm:p-2.5 cursor-pointer hover:bg-[#FFFFFF33] transition-colors">
                       Télécharger
                     </button>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

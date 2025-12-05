@@ -37,7 +37,7 @@ const ManageSubscriptionPage = () => {
     
   // Check if plan is unlimited
   const isUnlimited = user?.current_subscription?.plan_name === "Ultimate" || user?.current_subscription?.plan_quota === 0;
-  const usedQuota = user?.current_subscription?.quota_used || 0;
+  const usedQuota = user?.current_subscription?.plan_quota  - user?.current_subscription?.quota_remaining || 0;
   const totalQuota = user?.current_subscription?.plan_quota || 1;
   const remainingQuota = totalQuota - usedQuota;
   const progressPercentage = isUnlimited ? 100 : ((usedQuota / totalQuota) * 100);
@@ -139,7 +139,7 @@ function formatDateFrench(dateString) {
 
             {/* Buttons Section */}
             <div className="flex flex-wrap sm:flex-nowrap gap-3  justify-between items-center text-spline p-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 opacity-0">
 
                 <p className="text-sm text-gray-text cursor-pointer"> <span className="ml-1">Voir les moyens de paiement</span></p>
                 <p  className="text-sm text-gray-text cursor-pointer" > <span className="ml-1">Historique de facturation</span> </p>

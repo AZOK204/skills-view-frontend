@@ -33,7 +33,7 @@ const SubscriptionManagement = ({
         <p className="text-sm text-chateau  font-normal leading-6">
           {isUnlimited 
             ? "Vidéos illimitées" 
-            : `${videosLimit - videoRemaining}/${videosLimit} vidéos analysées ce mois-ci`
+            : `${usedVideos}/${videosLimit} vidéos analysées ce mois-ci`
           }
         </p>
       </div>

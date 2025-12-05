@@ -93,14 +93,24 @@ const AnalysisResultsPage = () => {
         return;
       }
       
-      // Use fallback
-      window.open(fallbackReport.url, '_blank');
+      // Download fallback
+      const link = document.createElement('a');
+      link.href = fallbackReport.url;
+      link.download = fallbackReport.filename || 'report.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
       return;
     }
     
     // Download directly from Cloudinary
-    window.open(targetReport.url, '_blank');
-    console.log(`Opening PDF: ${targetReport.filename} from ${targetReport.url}`);
+    const link = document.createElement('a');
+    link.href = targetReport.url;
+    link.download = targetReport.filename || targetFilename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    console.log(`Downloaded PDF: ${targetReport.filename}`);
   };
 
   const handleDownloadZIP = async () => {

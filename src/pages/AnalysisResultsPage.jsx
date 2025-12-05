@@ -274,12 +274,12 @@ const AnalysisResultsPage = () => {
                     
                     {clip.url && (
                       <div className="w-48 flex flex-col gap-2">
-                        <video 
+                        {/* <video 
                           controls 
                           src={clip.url} 
                           className="w-full rounded bg-black"
                           preload="metadata"
-                        />
+                        /> */}
                         <a 
                           href={clip.url}
                           download={`clip_${clip.id}.mp4`}

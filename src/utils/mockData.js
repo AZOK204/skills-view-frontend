@@ -31,7 +31,7 @@ export const landingPageData = {
     subtitle: 'Une plateforme tout-en-un pour analyser vos matchs, <br/>suivre vos joueurs et booster vos performances.',
     buttons: [
       { label: 'Essayer gratuitement', primary: true  , link:'/pricing'},
-      { label: 'Reserver un visio', primary: false , link:'https://cal.com/mathis-skillsview/30min?overlayCalendar=true'},
+      { label: 'Reserver unE visio', primary: false , link:'https://cal.com/mathis-skillsview/30min?overlayCalendar=true'},
     ],
     floatingCard: {
       title: 'Total Stats',
@@ -126,7 +126,7 @@ export const landingPageData = {
         period: 'par mois',
         annualPrice: 0,
         features: [
-          'Import jusqu\'à 1 matchs/mois',
+          'Import jusqu\'à 1 match/mois',
           'Découpage automatique',
           'Statistiques globale',
           'Espace personnel.',

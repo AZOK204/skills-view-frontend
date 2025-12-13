@@ -18,7 +18,7 @@ const LegalNotice = () => {
         <strong>SIRET :</strong> 993 849 827 00015<br />
         <strong>SIREN :</strong> 993 849 827<br />
         <strong>Capital social :</strong> 0 €<br />
-        <strong>Adresse e-mail :</strong> <a href="mailto:contact@skillsview.org" className="text-primary hover:underline">contact@skillsview.org</a>
+        <strong>Adresse e-mail :</strong> <a href="mailto:skillsview@ikmail.com" className="text-primary hover:underline">skillsview@ikmail.com</a>
       `
     },
     {
@@ -38,7 +38,7 @@ const LegalNotice = () => {
       title: '3. Directeur de la publication',
       content: `
         <strong>Mathis Seghetto</strong>, en qualité de fondateur et représentant légal de SkillsView & Conseil.<br />
-        <strong>Contact :</strong> <a href="mailto:contact@skillsview.org" className="text-primary hover:underline">contact@skillsview.org</a>
+        <strong>Contact :</strong> <a href="mailto:skillsview@ikmail.com" className="text-primary hover:underline">skillsview@ikmail.com</a>
       `
     },
     {

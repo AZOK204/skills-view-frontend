@@ -112,7 +112,7 @@ const TermsOfUse = () => {
         • La gestion des abonnements et paiements<br />
         
         Pour exercer vos droits d'accès, rectification ou suppression, contactez : 
-        <a href="mailto:contact@skillsview.org" className="text-primary hover:underline">contact@skillsview.org</a>
+        <a href="mailto:skillsview@ikmail.com" className="text-primary hover:underline">skillsview@ikmail.com</a>
       `
     },
     {
@@ -208,9 +208,8 @@ const TermsOfUse = () => {
             <ul className="text-gray-300 space-y-2">
               <li>
                 <strong>Email :</strong>{' '}
-                <a href="mailto:contact@skillsview.com" className="text-primary hover:underline">
-                  contact@skillsview.com
-                </a>
+                <a href="mailto:skillsview@ikmail.com" className="text-primary hover:underline">
+skillsview@ikmail.com                </a>
               </li>
               <li>
                 <strong>Support :</strong>{' '}

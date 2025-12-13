@@ -81,7 +81,7 @@ const SubscriptionPricingPage = () => {
          period: 'par mois',
   
         features: [
-          'Import jusqu\'à 1 matchs/mois',
+          'Import jusqu\'à 1 match/mois',
           'Découpage automatique',
           'Statistiques globale',
           'Espace personnel.',
